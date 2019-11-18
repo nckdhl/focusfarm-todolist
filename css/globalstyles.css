@@ -1,0 +1,19 @@
+#index-body input {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    background-color: #eee;
+}
+
+#index-body .no-outline:focus {
+    outline: none;
+    background-color: #eee;
+}
+
+.start-pomodoro:hover {
+    background-color: darkslategrey !important;
+    color: white;
+    cursor: pointer;
+    
+}

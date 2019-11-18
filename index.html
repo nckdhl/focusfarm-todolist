@@ -8,11 +8,13 @@
         content="Another pomodoro timer with some basic to-do list functionality and lots of background music">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/globalstyles.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/globalstyles.css">
     <script src="js/main.js" defer></script>
 </head>
 
-<body>
+<body id="index-body">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -50,6 +52,21 @@
             </form>
         </div>
     </nav>
+    |<div class="container">
+        <form>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex">
+                    <input class="form-check-input mr-auto" type="checkbox" value="" id="defaultCheck1">
+                    <span class="">This must be done</span>
+                    <span class="badge badge-primary badge-pill ml-auto p-2">14</span>
+                    <span class="start-pomodoro badge badge-pill badge- ml-1 p-2">Start</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <input type="text" class="form-control no-outline" placeholder="Enter item here" size="100">
+                </li>
+            </ul>
+        </form>
+    </div>
 
 
 

@@ -21,8 +21,7 @@ export class ListItem {
     render() {
         li.setAttribute("class", "listItem list-group-item d-flex justify-content-between align-items-center");
         if (this.hasPomodoro){
-            
-            li.appendChild(pomodoro);
+            li.appendChild(this.createPomodoro());
         }
         if (this.hasCategory){
             let category = document.createElement("span");
@@ -35,6 +34,10 @@ export class ListItem {
 
     }
 
+    setText(text) {
+        this.li.innerText = text;
+    }
+
     addPomodoro() {
         this.hasPomodoro = true;
         this.pomodoros++;
@@ -42,7 +45,7 @@ export class ListItem {
 
     createPomodoro() {
         let pomodoro = document.createElement("span");
-        pomodoro.setAttribute = ("class", "badge badge-success badge-pill");
+        pomodoro.setAttribute = ("class", "badge badge-primary badge-pill ml-auto p-2");
         pomodoro.innerText = pomodoroCount;
     }
 
