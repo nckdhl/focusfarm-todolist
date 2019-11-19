@@ -61,13 +61,37 @@ export  default class ListItem{
         this.listContainer.removeChild(this.li);
     }
 
+    toggleInput() {
+        if (!this.isInput){
+            this.li.removeChild(this.input);
+            this.renderListItem();
+            if (this.input.value == ""){
+                this.setText("Please enter a task.");
+            } else {
+                this.setText(this.input.value);
+            }
+            this.scanForTags();
+            this.isInput = !this.isInput;
+            console.log("first one");
+        } else {
+            this.removeListItem();
+            this.renderInput();
+            this.isInput = !this.isInput;
+            console.log("second one");
+        }
+    }
+
     initEvents() {
         var that = this;
         this.li.addEventListener("dblclick", function(){
             if (!that.isInput){
                 that.li.removeChild(that.input);
                 that.renderListItem();
-                that.setText(that.input.value);
+                if (that.input.value == ""){
+                    that.setText("Please enter a task.");
+                } else {
+                    that.setText(that.input.value);
+                }
                 that.scanForTags();
                 that.isInput = !that.isInput;
                 console.log("first one");

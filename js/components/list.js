@@ -38,11 +38,18 @@ export default class List{
 
     addListItem(listItem) {
         console.log("tried to add");
-        this.listItems.push[listItem];
-        listItem.renderInput();
         var that = this;
+        this.listItems.push(listItem);
+        console.log(listItem);
+        let lastItem = this.listItems.length - 1;
+        console.log(lastItem);
+        if (!this.listItems[lastItem].isInput && lastItem > 0){
+            this.listItems[lastItem - 1].toggleInput();
+        }
+        
+        listItem.renderInput();
         listItem.deleteThis.addEventListener("click", function(){
-            that.deleteListItem(listItem, (that.listItems.length-1));
+            that.deleteListItem(listItem, (lastItem));
         });
     }
 
@@ -61,8 +68,8 @@ export default class List{
     createTitle() {
         let titleString = this.listTitle;
         let listTitle = document.createElement("h6");
-        listTitle.setAttribute("class", "list-title");
-        listTitle.innerHTML = `${titleString} <span class="font-italic">${this.dateCreated}</span>`;
+        listTitle.setAttribute("class", "list-title d-flex");
+        listTitle.innerHTML = `${titleString} <span class="font-italic ml-auto">${this.dateCreated.toLocaleDateString("en-US")}</span>`;
         return listTitle;
     }
 
