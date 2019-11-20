@@ -1,4 +1,3 @@
-
 /**
  * This class is for a list item in the to-do list
  * 
@@ -6,9 +5,9 @@
  * - category functionality
  * - 
  */
-export  default class ListItem{
+export default class ListItem {
 
-    constructor(listContainer){
+    constructor(listContainer) {
         this.listContainer = listContainer;
         this.hasPomodoro = false;
         //this.hasCategory = false;
@@ -63,10 +62,10 @@ export  default class ListItem{
     }
 
     toggleInput() {
-        if (!this.isInput){
+        if (!this.isInput) {
             this.li.removeChild(this.input);
             this.renderListItem();
-            if (this.input.value == ""){
+            if (this.input.value == "") {
                 this.setText("Doubleclick to edit.");
             } else {
                 this.setText(this.input.value);
@@ -85,7 +84,7 @@ export  default class ListItem{
 
     initEvents() {
         var that = this;
-        this.li.addEventListener("dblclick", function(){
+        this.li.addEventListener("dblclick", function () {
             that.toggleInput();
             // if (!that.isInput){
             //     that.li.removeChild(that.input);
@@ -105,8 +104,15 @@ export  default class ListItem{
             //     console.log("second one");
             // }
         });
-        this.checkBox.addEventListener("change", function(){
-            if (that.checkBox.checked){
+        this.input.addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                that.toggleInput();
+            }
+
+        })
+        this.checkBox.addEventListener("change", function () {
+            if (that.checkBox.checked) {
                 that.text.style.textDecoration = "line-through";
                 that.isComplete = true;
             } else {
@@ -120,17 +126,17 @@ export  default class ListItem{
         var that = this;
         let string = this.text.innerText;
         this.tags = string.match(/\B(\#[a-zA-Z]+\b)/g);
-        if (this.tags){
+        if (this.tags) {
             this.hasTag = true;
         }
-        if (this.hasTag){
-            this.tags.forEach(function(tag) {
+        if (this.hasTag) {
+            this.tags.forEach(function (tag) {
                 that.text.innerHTML = string.replace(tag, `<span class="hash-tag">${tag}<span>`);
             })
         }
         console.log(this.tags);
     }
-    
+
     createLi() {
         let li = document.createElement("li");
         li.setAttribute("class", "list-group-item d-flex");

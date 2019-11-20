@@ -50,12 +50,8 @@ export default class List {
         console.log(listItem);
         let lastItem = this.listItems.length - 1;
         console.log(lastItem);
-        if (!this.listItems[lastItem].isInput && lastItem > 0 && this.listItems.length > 0) {
-            // this.listItems.push(listItem);
+        if (lastItem > 1 && !(this.listItems[lastItem - 1].isInput)) {
             this.listItems[lastItem - 1].toggleInput();
-            // this.listItems.forEach(function(item){
-            //     item.toggleInput();
-            // })
         }
 
         listItem.renderInput();
