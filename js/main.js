@@ -6,8 +6,11 @@ window.addEventListener("load", function () {
     let newListButton = document.querySelector("#new-list-button");
     let newListNameInput = document.querySelector("#new-list-input");
 
+    let lists = [];
+
     newListButton.addEventListener("click", function(){
         let l = new List(container, newListNameInput.value);
+        lists.push(l);
         l.renderList();
     })
 });

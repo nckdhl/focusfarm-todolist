@@ -15,6 +15,7 @@ export  default class ListItem{
         this.hasTag = false;
         this.isComplete = false;
         this.isInput = false;
+        this.hasText = false;
         this.dateCreated = new Date();
 
         this.pomodoroCount = 0;
@@ -66,9 +67,10 @@ export  default class ListItem{
             this.li.removeChild(this.input);
             this.renderListItem();
             if (this.input.value == ""){
-                this.setText("Please enter a task.");
+                this.setText("Doubleclick to edit.");
             } else {
                 this.setText(this.input.value);
+                this.hasText = true;
             }
             this.scanForTags();
             this.isInput = !this.isInput;
@@ -84,23 +86,24 @@ export  default class ListItem{
     initEvents() {
         var that = this;
         this.li.addEventListener("dblclick", function(){
-            if (!that.isInput){
-                that.li.removeChild(that.input);
-                that.renderListItem();
-                if (that.input.value == ""){
-                    that.setText("Please enter a task.");
-                } else {
-                    that.setText(that.input.value);
-                }
-                that.scanForTags();
-                that.isInput = !that.isInput;
-                console.log("first one");
-            } else {
-                that.removeListItem();
-                that.renderInput();
-                that.isInput = !that.isInput;
-                console.log("second one");
-            }
+            that.toggleInput();
+            // if (!that.isInput){
+            //     that.li.removeChild(that.input);
+            //     that.renderListItem();
+            //     if (that.input.value == ""){
+            //         that.setText("Please enter a task.");
+            //     } else {
+            //         that.setText(that.input.value);
+            //     }
+            //     that.scanForTags();
+            //     that.isInput = !that.isInput;
+            //     console.log("first one");
+            // } else {
+            //     that.removeListItem();
+            //     that.renderInput();
+            //     that.isInput = !that.isInput;
+            //     console.log("second one");
+            // }
         });
         this.checkBox.addEventListener("change", function(){
             if (that.checkBox.checked){
@@ -138,6 +141,7 @@ export  default class ListItem{
         let input = document.createElement("input");
         input.setAttribute("class", "form-control no-outline");
         input.setAttribute("type", "text");
+        input.setAttribute("placeholder", "Type here...");
         return input;
     }
 

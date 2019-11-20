@@ -1,4 +1,3 @@
-
 import ListItem from './listitem.js';
 
 /**
@@ -7,9 +6,9 @@ import ListItem from './listitem.js';
  * TO-DO:
  * - lots
  */
-export default class List{
-    
-    constructor(container, title){
+export default class List {
+
+    constructor(container, title) {
         this.container = container;
         this.listItems = [];
         this.listTitle = title;
@@ -18,9 +17,16 @@ export default class List{
         this.ul = this.createUl();
         this.title = this.createTitle();
         this.ul.appendChild(this.title);
-        this.addListItem(new ListItem(this.ul));
+        this.initList();
+        //this.addListItem(new ListItem(this.ul));
         this.button = this.createButton();
         this.initEvents();
+    }
+
+    initList(){
+        let firstItem = new ListItem(this.ul);
+        this.listItems.push(firstItem);
+        firstItem.renderInput();
     }
 
     renderList() {
@@ -30,9 +36,10 @@ export default class List{
 
     initEvents() {
         var that = this;
-        this.button.addEventListener("click", function(){
+        this.button.addEventListener("click", function () {
             console.log("clicked");
             that.addListItem(new ListItem(that.ul));
+            console.log(that.listItems);
         });
     }
 
@@ -43,24 +50,45 @@ export default class List{
         console.log(listItem);
         let lastItem = this.listItems.length - 1;
         console.log(lastItem);
-        if (!this.listItems[lastItem].isInput && lastItem > 0){
+        if (!this.listItems[lastItem].isInput && lastItem > 0 && this.listItems.length > 0) {
+            // this.listItems.push(listItem);
             this.listItems[lastItem - 1].toggleInput();
+            // this.listItems.forEach(function(item){
+            //     item.toggleInput();
+            // })
         }
-        
+
         listItem.renderInput();
-        listItem.deleteThis.addEventListener("click", function(){
-            that.deleteListItem(listItem, (lastItem));
+        listItem.deleteThis.addEventListener("click", function () {
+            that.deleteListItem(listItem, that.listItems.indexOf(listItem));
         });
     }
 
+    // const removeItem = (items, i) =>
+    //     items.slice(0, i - 1).concat(items.slice(i, items.length))
+
+    // let filteredItems = removeItem(items, 3)
+    // filteredItems = removeItem(filteredItems, 5)
+    // //["a", "b", "d", "e"]
+
     deleteListItem(listItem, index) {
-        listItem.removeListItem();
-        listItem.delete();
-        this.listItems.splice(index, 1);
+        const removeItem = (items, i) =>
+            items.slice(0, i - 1).concat(items.slice(i, items.length))
+
+        // let filteredItems = removeItem(items, 3)
+        // filteredItems = removeItem(filteredItems, 5)
+        //["a", "b", "d", "e"]
+        if (this.listItems.length > 1) {
+            listItem.removeListItem();
+            listItem.delete();
+            //this.listItems = removeItem(this.listItems, index);
+            this.listItems.splice(index, 1);
+            console.log(this.listItems);
+        }
     }
 
     createUl() {
-        let ul =  document.createElement("ul");
+        let ul = document.createElement("ul");
         ul.setAttribute("class", "list-group list-group-flush");
         return ul;
     }
