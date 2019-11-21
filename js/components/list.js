@@ -11,9 +11,13 @@ export default class List {
     constructor(container, title) {
         this.container = container;
         this.listItems = [];
-        this.listTitle = title;
+        if (title == ""){
+            this.listTitle = "No title";
+        } else {
+            this.listTitle = title;
+        }
         this.dateCreated = new Date();
-
+        this.div = this.createDiv();
         this.ul = this.createUl();
         this.title = this.createTitle();
         this.ul.appendChild(this.title);
@@ -23,6 +27,13 @@ export default class List {
         this.initEvents();
     }
 
+    createDiv() {
+        let div = document.createElement("div");
+        div.setAttribute("class", "col-9");
+        return div;
+    }
+
+
     initList(){
         let firstItem = new ListItem(this.ul);
         this.listItems.push(firstItem);
@@ -30,8 +41,9 @@ export default class List {
     }
 
     renderList() {
-        this.container.appendChild(this.ul);
-        this.container.appendChild(this.button);
+        this.div.appendChild(this.ul);
+        this.div.appendChild(this.button);
+        this.container.insertAdjacentElement("afterbegin", this.div);
     }
 
     initEvents() {
@@ -53,31 +65,17 @@ export default class List {
         if (lastItem > 1 && !(this.listItems[lastItem - 1].isInput)) {
             this.listItems[lastItem - 1].toggleInput();
         }
-
         listItem.renderInput();
         listItem.deleteThis.addEventListener("click", function () {
             that.deleteListItem(listItem, that.listItems.indexOf(listItem));
         });
     }
 
-    // const removeItem = (items, i) =>
-    //     items.slice(0, i - 1).concat(items.slice(i, items.length))
-
-    // let filteredItems = removeItem(items, 3)
-    // filteredItems = removeItem(filteredItems, 5)
-    // //["a", "b", "d", "e"]
-
     deleteListItem(listItem, index) {
-        const removeItem = (items, i) =>
-            items.slice(0, i - 1).concat(items.slice(i, items.length))
-
-        // let filteredItems = removeItem(items, 3)
-        // filteredItems = removeItem(filteredItems, 5)
-        //["a", "b", "d", "e"]
+            
         if (this.listItems.length > 1) {
             listItem.removeListItem();
             listItem.delete();
-            //this.listItems = removeItem(this.listItems, index);
             this.listItems.splice(index, 1);
             console.log(this.listItems);
         }

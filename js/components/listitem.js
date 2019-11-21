@@ -66,7 +66,7 @@ export default class ListItem {
             this.li.removeChild(this.input);
             this.renderListItem();
             if (this.input.value == "") {
-                this.setText("Doubleclick to edit.");
+                this.setText("Doubleclick here to edit.");
             } else {
                 this.setText(this.input.value);
                 this.hasText = true;
@@ -86,30 +86,12 @@ export default class ListItem {
         var that = this;
         this.li.addEventListener("dblclick", function () {
             that.toggleInput();
-            // if (!that.isInput){
-            //     that.li.removeChild(that.input);
-            //     that.renderListItem();
-            //     if (that.input.value == ""){
-            //         that.setText("Please enter a task.");
-            //     } else {
-            //         that.setText(that.input.value);
-            //     }
-            //     that.scanForTags();
-            //     that.isInput = !that.isInput;
-            //     console.log("first one");
-            // } else {
-            //     that.removeListItem();
-            //     that.renderInput();
-            //     that.isInput = !that.isInput;
-            //     console.log("second one");
-            // }
         });
         this.input.addEventListener("keyup", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 that.toggleInput();
             }
-
         })
         this.checkBox.addEventListener("change", function () {
             if (that.checkBox.checked) {
@@ -147,7 +129,7 @@ export default class ListItem {
         let input = document.createElement("input");
         input.setAttribute("class", "form-control no-outline");
         input.setAttribute("type", "text");
-        input.setAttribute("placeholder", "Type here...");
+        input.setAttribute("placeholder", "Type here... press enter to save.");
         return input;
     }
 
