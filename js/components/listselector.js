@@ -13,7 +13,7 @@ export default class ListSelector {
         this.selectorControl = this.createSelect();        
     }
 
-    render() {
+    renderSelector() {
         this.selectorContainer.appendChild(this.selectorLabel);
         this.selectorContainer.appendChild(this.selectorControl);
         this.container.appendChild(this.selectorContainer);

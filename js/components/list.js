@@ -44,6 +44,7 @@ export default class List {
         this.div.appendChild(this.ul);
         this.div.appendChild(this.button);
         this.container.insertAdjacentElement("afterbegin", this.div);
+        // this.listItems[0].input.focus();
     }
 
     initEvents() {
