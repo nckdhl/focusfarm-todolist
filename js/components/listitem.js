@@ -37,6 +37,7 @@ export default class ListItem {
 
     renderInput() {
         this.li.appendChild(this.input);
+        this.input.focus();
     }
 
     renderListItem() {
@@ -77,6 +78,7 @@ export default class ListItem {
         } else {
             this.removeListItem();
             this.renderInput();
+            this.input.focus();
             this.isInput = !this.isInput;
             console.log("second one");
         }
@@ -121,7 +123,7 @@ export default class ListItem {
 
     createLi() {
         let li = document.createElement("li");
-        li.setAttribute("class", "list-group-item d-flex");
+        li.setAttribute("class", "list-group-item d-flex bg-dark text-light");
         return li;
     }
 

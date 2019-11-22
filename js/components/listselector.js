@@ -35,7 +35,7 @@ export default class ListSelector {
 
     createDiv() {
         let div = document.createElement("div");
-        div.setAttribute("class", "form-group col-3");
+        div.setAttribute("class", "form-group col-3 bg-secondary rounded-lg pt-0 pb-5 m-0 shadow-lg");
         return div;
     }
 
@@ -47,7 +47,7 @@ export default class ListSelector {
 
     createSelect(){
         let select = document.createElement("select");
-        select.setAttribute("class", "form-control");
+        select.setAttribute("class", "form-control h-100 pb-3 m-0");
         select.setAttribute("id", "list-selection-control");
         select.multiple = true;
         return select;

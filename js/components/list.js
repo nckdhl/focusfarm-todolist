@@ -90,14 +90,14 @@ export default class List {
     createTitle() {
         let titleString = this.listTitle;
         let listTitle = document.createElement("h6");
-        listTitle.setAttribute("class", "list-title d-flex");
+        listTitle.setAttribute("class", "list-title d-flex text-light");
         listTitle.innerHTML = `${titleString} <span class="font-italic ml-auto">${this.dateCreated.toLocaleDateString("en-US")}</span>`;
         return listTitle;
     }
 
     createButton() {
         let addButton = document.createElement("button");
-        addButton.setAttribute("class", "mt-2 btn btn-outline-secondary btn-lg btn-block");
+        addButton.setAttribute("class", "mt-2 btn btn-outline-light btn-lg btn-block");
         addButton.innerText = "Add List Item";
         return addButton;
     }

@@ -14,8 +14,8 @@
     <script type="module" src="js/main.js" defer></script>
 </head>
 
-<body id="index-body">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body class="bg-secondary" id="index-body">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-lg bg-dark">
         <a class="navbar-brand" href="#">FocusFarm</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,15 +52,15 @@
             </form>
         </div>
     </nav>
-    <div class="container input-group mb-3 mt-2" id="new-list-button-group">
+    <div class="container input-group bg-dark shadow-lg mb-3 mt-2 rounded-lg p-2" id="new-list-button-group">
         <input type="text" id="new-list-input" class="form-control" placeholder="Add a name to your list..."
             aria-label="Recipient's username" aria-describedby="basic-addon2" required>
         <div class="input-group-append">
-            <button id="new-list-button" class="btn btn-outline-secondary" type="submit">New List</button>
+            <button id="new-list-button" class="btn btn-outline-light" type="submit">New List</button>
         </div>
     </div>
     <div class="container">
-        <div class="row" id="list-container">
+        <div class="row bg-dark shadow-lg rounded-lg" id="list-container">
         </div>
     </div>
 

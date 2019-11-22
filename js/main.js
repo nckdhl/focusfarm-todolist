@@ -14,6 +14,7 @@ window.addEventListener("load", function () {
 
     newListButton.addEventListener("click", function(event){
         event.preventDefault();
+        container.classList.add('p-3');
         let l = new List(container, newListNameInput.value);
         l.renderList();
         if (listCount === 0){

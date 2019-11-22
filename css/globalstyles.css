@@ -1,9 +1,36 @@
+#index-body {
+    background-image: url("/assets/images/alps-unsplash-unedited.jpg");
+    background-size: 100%;
+}
+
 #index-body input {
     border-top-style: hidden;
     border-right-style: hidden;
     border-left-style: hidden;
     border-bottom-style: hidden;
-    background-color: #eee;
+    
+    background-color: transparent;
+    border: 0px;
+    /* outline: none; */
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor:default;
+}
+
+#index-body input:focus {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    color: white !important;
+    background-color: transparent !important;
+    border: 0px;
+    /* outline: none; */
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor:default;
 }
 
 #index-body .no-outline:focus {
@@ -20,4 +47,19 @@
 
 .hash-tag {
     color: red;
+}
+
+#index-body select {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor:default;
 }
