@@ -1,6 +1,7 @@
 #index-body {
     background-image: url("/assets/images/alps-unsplash-unedited.jpg");
-    background-size: 100%;
+    background-size: auto;
+    background-repeat: no-repeat;
 }
 
 #index-body input {

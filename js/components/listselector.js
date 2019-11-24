@@ -10,7 +10,9 @@ export default class ListSelector {
 
         this.selectorContainer = this.createDiv();
         this.selectorLabel = this.createLabel();
-        this.selectorControl = this.createSelect();        
+        this.selectorControl = this.createSelect();
+        this.selectorLoadButton = this.createLoadButton();
+        this.selectorDeleteButton = this.createDeleteButton();
     }
 
     renderSelector() {
@@ -45,11 +47,30 @@ export default class ListSelector {
         return label;
     }
 
-    createSelect(){
+    createSelect() {
         let select = document.createElement("select");
         select.setAttribute("class", "form-control h-100 pb-3 m-0");
         select.setAttribute("id", "list-selection-control");
         select.multiple = true;
         return select;
+    }
+
+    createLoadButton() {
+        let button = document.createElement("button");
+        button.setAttribute("class", "btn btn-primary");
+        button.innerText = "Load";
+        return button;
+    }
+
+    createButtonGroup() {
+        let buttonGroup = document.createElement("div");
+        buttonGroup.setAttribute("")
+    }
+
+    createDeleteButton() {
+        let button = document.createElement("button");
+        button.setAttribute("class", "btn btn-primary");
+        button.innerText = "Delete";
+        return button;
     }
 }
