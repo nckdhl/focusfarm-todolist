@@ -15,6 +15,7 @@ window.addEventListener("load", function () {
     timer.renderTimer();
     
     let listCount = 0;
+    let lastIndex = 0;
 
     let lists = [];
 
@@ -28,33 +29,28 @@ window.addEventListener("load", function () {
             selector.insertList(l);
         } else {
             selector.insertList(l);
-            container.removeChild(lists[lists.length - 1].div)
-            // lists[lists.length - 1].ul.style.display = "none";
-            // lists[lists.length - 1].button.style.display = "none";
+            container.removeChild(lists[lists.length - 1].div);
         }
         lists.push(l);
         listCount ++;
-        
+        lastIndex = listCount - 1;
     })
 
-    // <li class="page-item"><a class="page-link" href="#">1</a></li>
-    // <li class="page-item"><a class="page-link" href="#">2</a></li>
-    // <li class="page-item"><a class="page-link" href="#">3</a></li>
-    // function createListSelection(){
-    //     console.log("List selection create called");
-    //     container.insertAdjacentHTML("beforeend", 
-    //         `<div class="form-group">
-    //         <label for="exampleFormControlSelect2">Which list do you want to see?</label>
-    //         <select multiple class="form-control" id="list-selection-control">
-    //         </select>
-    //       </div>`);
-    // }
+    selector.selectorLoadButton.addEventListener("click", function(){
+        let selectedIndex = selector.selectorControl.selectedIndex;
+        if (selectedIndex != lastIndex){
+            lists[selectedIndex].renderList();
+        container.removeChild(lists[lastIndex].div);
+        }
+        lastIndex = selectedIndex;
+        console.log("List to be loaded: ");
+        console.log(lists[selectedIndex]);
+    })
 
-    // function insertListSelection(){
-    //     let option = document.createElement("option");
-    //     option.setAttribute("id", `${listCount}`);
-    //     option.innerText = `${lists[listCount].listTitle}`;
-    //     let container = document.querySelector("#list-selection-control");
-    //     container.appendChild(option);
-    // }
+    // selector.selectorDeleteButton.addEventListener("click", function(){
+    //     let selectedIndex = selector.selectorControl.selectedIndex;
+    //     container.removeChild(lists[selectedIndex].div);
+    //     lists = lists.splice(selectedIndex, 1);
+    // })
+
 });

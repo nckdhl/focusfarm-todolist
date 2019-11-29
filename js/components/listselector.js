@@ -18,9 +18,11 @@ export default class ListSelector {
     renderSelector() {
         this.selectorContainer.appendChild(this.selectorLabel);
         this.selectorContainer.appendChild(this.selectorControl);
+        this.selectorContainer.appendChild(this.selectorLoadButton);
+        this.selectorContainer.appendChild(this.selectorDeleteButton);
         this.container.appendChild(this.selectorContainer);
     }
-
+    
     insertList(list){
         this.lists.push(list);
         this.listCount++;
@@ -33,6 +35,12 @@ export default class ListSelector {
         option.setAttribute("id", id);
         this.selectorControl.appendChild(option);
         return option;
+    }
+
+    removeList(index){
+        this.lists = this.list.splice(index, 1);
+        
+
     }
 
     createDiv() {
@@ -57,19 +65,14 @@ export default class ListSelector {
 
     createLoadButton() {
         let button = document.createElement("button");
-        button.setAttribute("class", "btn btn-primary");
+        button.setAttribute("class", "mb-4 btn btn-primary");
         button.innerText = "Load";
         return button;
     }
 
-    createButtonGroup() {
-        let buttonGroup = document.createElement("div");
-        buttonGroup.setAttribute("")
-    }
-
     createDeleteButton() {
         let button = document.createElement("button");
-        button.setAttribute("class", "btn btn-primary");
+        button.setAttribute("class", "mb-4 btn btn-primary");
         button.innerText = "Delete";
         return button;
     }
