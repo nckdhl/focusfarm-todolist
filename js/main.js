@@ -1,18 +1,13 @@
 import ListItem from './components/listitem.js';
 import List from './components/list.js';
 import ListSelector from './components/listselector.js';
-import Timer from './components/timer.js';
 
 window.addEventListener("load", function () {
     let container = document.querySelector("#list-container");
     let newListButton = document.querySelector("#new-list-button");
     let newListNameInput = document.querySelector("#new-list-input");
-    let timerContainer = document.querySelector("#timer-container");
     
     let selector = new ListSelector(container);
-    
-    let timer = new Timer(timerContainer);
-    timer.renderTimer();
     
     let listCount = 0;
     let lastIndex = 0;
