@@ -4,6 +4,8 @@ window.addEventListener("load", function () {
     let loginButton = document.querySelector("button");
     let emailInput = document.forms[0][0];
     let passwordInput = document.forms[0][1];
+    let register = document.querySelector("#register");
+
 
     loginButton.addEventListener("click", function () {
         event.preventDefault();
@@ -35,4 +37,10 @@ window.addEventListener("load", function () {
 
 
     });
+
+    register.addEventListener("click", function (){
+
+    }
+
+    );
 });
