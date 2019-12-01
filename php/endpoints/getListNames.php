@@ -17,7 +17,5 @@ if ($success){
         array_push($lists, $list);
     }
 }
-// echo var_dump($lists);
-// echo var_dump($success);
-// prints JSON for the HTTP response
+
 echo json_encode($lists);
