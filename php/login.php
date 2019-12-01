@@ -17,16 +17,19 @@ function getCredentials($email, $dbo){
     }
 }
 
+$credentialsOK = false;
+
+if (isset($_SESSION["userID"])){
+    $credentialsOK = true;
+}
+
 $emailInput = filter_input(INPUT_POST, "email", FILTER_SANITIZE_SPECIAL_CHARS);
 $passwordInput = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-
-$credentialsOK = false;
 
 $validation = [];
 
 if ($emailInput !== null and $passwordInput !== null) {
 
-    $paramsOK = true;
     $userRecord = getCredentials($emailInput, $dbh);
 
     if ($userRecord) {
