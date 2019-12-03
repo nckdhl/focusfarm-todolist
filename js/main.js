@@ -6,6 +6,8 @@ window.addEventListener("load", function () {
     let container = document.querySelector("#list-container");
     let newListButton = document.querySelector("#new-list-button");
     let newListNameInput = document.querySelector("#new-list-input");
+    let saveButton = document.querySelector("#save");
+    let logOutButton = document.querySelector("#logOut");
     
     let selector = new ListSelector(container);
     
@@ -13,6 +15,47 @@ window.addEventListener("load", function () {
     let lastIndex = 0;
 
     let lists = [];
+
+    const getLists = () => {
+        fetch("php/endpoints/getListNames.php", {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        })
+            .then(response => response.json())
+            .then(function (data) {
+                console.log(data);
+            });
+    };
+
+    const populateListSelector = data => {
+
+    }
+
+    getLists();
+
+    logOutButton.addEventListener("click", function(){
+        let params = `logout=true`;
+
+        fetch("php/logout.php", {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }, // parameter format
+            body: params
+        })
+            .then(response => response.json())
+            .then(function (logout) {
+                if (logout.success){
+                    window.location.href = "../index.html";
+                } else {
+                    console.log("Didn't log out");
+                }
+            });
+    });
 
     newListButton.addEventListener("click", function(event){
         event.preventDefault();
