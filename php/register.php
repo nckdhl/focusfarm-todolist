@@ -14,6 +14,7 @@ function doesUserExist($email, $dbo){
     } else {
         return true;
     }
+    // TODO add try catch exception handling
 }
 
 function insertRecord($email, $password, $firstName, $lastName, $dbo){
@@ -27,6 +28,7 @@ function insertRecord($email, $password, $firstName, $lastName, $dbo){
     } else {
         return false;
     }
+    // TODO add try catch exception handling
 }
 
 if (isset($_SESSION["userID"])){
@@ -40,6 +42,7 @@ $emailInput = filter_input(INPUT_POST, "email", FILTER_SANITIZE_SPECIAL_CHARS);
 $passwordInput = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
 
 $userPreExisting = true;
+$notValid = array("valid" => false, "inserted" => false);
 
 if ($emailInput !== null and $passwordInput !== null and
     $firstNameInput !== null and $lastNameInput !== null) {
@@ -54,11 +57,16 @@ if ($emailInput !== null and $passwordInput !== null and
                 //  that will be returned to javascript
             }
         } else {
-            $notValid = array("valid" => false, "inserted" => false);
+            session_unset();
+            session_destroy();
             echo json_encode($notValid);
         }
 
 
-    }
+} else {
+    echo json_encode($notValid);
+    session_unset();
+    session_destroy();
+}
 
 

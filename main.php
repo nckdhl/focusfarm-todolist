@@ -4,74 +4,19 @@
  */
 require "php/connectdb.php";
 
-// session_start();
+ session_start();
 
-// // check login information first
-// $emailInput = filter_input(INPUT_POST, "email", FILTER_SANITIZE_SPECIAL_CHARS);
-// $passwordInput = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+ $loggedIn = false;
 
-// $credentialsOK = false;
-// $paramsOK = false;
+ if (isset($_SESSION["userID"])){
+    $loggedIn = true;
+ } else {
+     session_unset();
+     session_destroy();
+     header("Location: index.html");
+     exit();
+ }
 
-// if ($emailInput !== null and $passwordInput !== null) {
-    
-//     $paramsOK = true;
-//     $userRecord = getCredentials($emailInput, $dbh);
-    
-//     if ($userRecord == 1) {
-        
-//         $passwordHash = $userRecord["password"];
-//         $userID = $userRecord["userID"];
-//         $firstName = $userRecord["first_name"];
-        
-//         if (password_verify($passwordHash, $passwordInput)){
-            
-//             $_SESSION["userID"] = $userID;
-//             $_SESSION["firstName"] = $firstName;
-//             $credentialsOK = true;
-        
-//         } 
-//     } 
-
-//     session_unset();
-//             session_destroy();
-  
-// }
-
-// // if (!$credentialsOK) 
-
-// function getCredentials($email, $dbo){
-//     $command = "SELECT userID, first_name, password FROM user WHERE email=?";
-//     $stmt = $dbo->prepare($command);
-//     $params = [$email];
-//     $success = $stmt->execute($params);
-//     return $success;
-// }
-
-// function authenticate($dbPasswordHash, $inputPassword){
-//     if (password_verify($inputPassword, $dbPasswordHash)){
-//         return true;
-//     }
-// }
-
-// function storeSessionValues($user){
-    
-// }
-
-// // 1. get the hashed password
-// //     normally you would get this from the DB where only the hashed 
-// //     version is stored.
-// $pwd = password_hash("mypassword", PASSWORD_BCRYPT);
-
-// // 2. get what the user entered
-// $userpwd = filter_input(INPUT_POST, "password");
-
-// // 3. compare
-// if (password_verify($userpwd, $pwd)) {
-//     echo "Access Granted.<br>'$userpwd' matches hash '$pwd'";
-// } else {
-//     echo "Access Denied.<br>'$userpwd' does not match hash '$pwd'";
-// }
 ?><!DOCTYPE html>
 
 <head>
@@ -106,7 +51,7 @@ require "php/connectdb.php";
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Dropdown
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
