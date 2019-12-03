@@ -9,7 +9,7 @@ function doesUserExist($email, $dbo){
     $stmt = $dbo->prepare($command);
     $params = [$email];
     $success = $stmt->execute($params);
-    if ($stmt.rowCount() == 0){
+    if ($stmt->rowCount() == 0){
         return false;
     } else {
         return true;
@@ -22,7 +22,7 @@ function insertRecord($email, $password, $firstName, $lastName, $dbo){
     $stmt = $dbo->prepare($command);
     $params = [$email, $password, $firstName, $lastName];
     $success = $stmt->execute($params);
-    if ($success and $stmt.rowCount() == 1){
+    if ($success and $stmt->rowCount() == 1){
         return true;
     } else {
         return false;
@@ -44,11 +44,14 @@ $userPreExisting = true;
 if ($emailInput !== null and $passwordInput !== null and
     $firstNameInput !== null and $lastNameInput !== null) {
 
+        // TODO add password hashing
+
         if (!doesUserExist($emailInput, $dbh)){
-            $isValid = array("valid" => true);
             if (insertRecord($emailInput, $passwordInput, $firstNameInput, $lastNameInput, $dbh)){
-                array_push($isValid, array("inserted" => true));
+                $isValid = array("inserted" => true, "valid" => true);
                 echo json_encode($isValid);
+                // FIXME make JSON inserted and valid keys more relevant for error messages
+                //  that will be returned to javascript
             }
         } else {
             $notValid = array("valid" => false, "inserted" => false);

@@ -38,6 +38,9 @@ if ($emailInput !== null and $passwordInput !== null) {
         $userID = $userRecord["userID"];
         $firstName = $userRecord["first_name"];
 
+        // TODO add password hash checks after password hashing for
+        //  registration is implemented
+
         // if (password_verify($passwordHash, $passwordInput)){
 
         //     $_SESSION["userID"] = $userID;
