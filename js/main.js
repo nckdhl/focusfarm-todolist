@@ -17,7 +17,7 @@ window.addEventListener("load", function () {
     let lists = [];
 
     const getLists = () => {
-        fetch("php/endpoints/getListNames.php", {
+        fetch("php/endpoints/GetLists.php", {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -30,7 +30,7 @@ window.addEventListener("load", function () {
             });
     };
 
-    const populateListSelector = data => {
+    const populateLists = data => {
 
     }
 
@@ -72,6 +72,7 @@ window.addEventListener("load", function () {
         lists.push(l);
         listCount ++;
         lastIndex = listCount - 1;
+        console.log(lists);
     })
 
     selector.selectorLoadButton.addEventListener("click", function(){

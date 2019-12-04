@@ -9,10 +9,12 @@ class ListItem implements JsonSerializable
     private $itemID;
     private $itemText;
     private $isComplete;
+    private $listID;
     private $dueDate;
     private $dateCreated;
 
-    function __construct($itemID = null, $itemText, $listID, $isComplete, $dueDate, $dateCreated)
+    function __construct($itemID = null, $itemText = null, $listID = null,
+                         $isComplete = null, $dueDate = null, $dateCreated = null)
     {
         $this->itemID = $itemID;
         $this->itemText = $itemText;
@@ -28,5 +30,9 @@ class ListItem implements JsonSerializable
     public function jsonSerialize()
     {
         return  get_object_vars($this);
+    }
+
+    public function getListId() {
+        return $this->listID;
     }
 }

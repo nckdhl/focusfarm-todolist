@@ -4,19 +4,31 @@
  * interface so that private members can get json encoded with the
  * json_encode function
  */
-class List implements JsonSerializable
+class ToDoList implements JsonSerializable
 {
     private $listID;
     private $listTitle;
     private $dateCreated;
     private $userID;
+    private $listItems;
 
-    function __construct($listID = null, $listTitle, $dateCreated, $userID = null)
+    function __construct($listID = null, $listTitle = null,
+                         $dateCreated = null, $userID = null)
     {
         $this->listID = $listID;
         $this->listTitle = $listTitle;
         $this->dateCreated = $dateCreated;
         $this->userID = $userID;
+        $this->listItems = [];
+
+    }
+
+    function addListItem($listItem){
+        array_push($this->listItems, $listItem);
+    }
+
+    function getListID(){
+        return $this->listID;
     }
 
     /**

@@ -1,31 +1,31 @@
 /**
  * This class is for a list item in the to-do list
- * 
- * TO-DO:
- * - category functionality
- * - 
+ *
  */
 export default class ListItem {
 
-    constructor(listContainer) {
+    constructor(listContainer, hasTag = false, isComplete = false, isInput = false, dateCreated = new Date()) {
         this.listContainer = listContainer;
-        this.hasPomodoro = false;
-        //this.hasCategory = false;
-        this.hasTag = false;
-        this.isComplete = false;
-        this.isInput = false;
-        this.hasText = false;
-        this.dateCreated = new Date();
 
-        this.pomodoroCount = 0;
+        this.hasTag = hasTag;
+        this.isComplete = isComplete;
+        this.isInput = isInput;
+        this.dateCreated = dateCreated;
+
+        // TODO add these features later
+        //this.hasText = false;
+        //this.hasPomodoro = false;
+        //this.hasCategory = false;
+        //this.pomodoroCount = 0;
+
         this.category;
         this.tags = [];
         this.li = this.createLi();
         this.checkBox = this.createCheckBox();
         this.text = document.createElement("span");
-        this.categorySpan = this.createCategory();
-        this.pomodoro = this.createPomodoro();
-        this.start = this.createStart();
+        //this.categorySpan = this.createCategory();
+        //this.pomodoro = this.createPomodoro();
+        //this.start = this.createStart();
         this.deleteThis = this.createDelete();
 
         this.input = this.createInput();
@@ -43,18 +43,18 @@ export default class ListItem {
     renderListItem() {
         this.li.appendChild(this.checkBox);
         this.li.appendChild(this.text);
-        this.li.appendChild(this.categorySpan);
-        this.li.appendChild(this.pomodoro);
-        this.li.appendChild(this.start);
+        //this.li.appendChild(this.categorySpan);
+        //this.li.appendChild(this.pomodoro);
+        //this.li.appendChild(this.start);
         this.li.appendChild(this.deleteThis);
     }
 
     removeListItem() {
         this.li.removeChild(this.checkBox);
         this.li.removeChild(this.text);
-        this.li.removeChild(this.categorySpan);
-        this.li.removeChild(this.pomodoro);
-        this.li.removeChild(this.start);
+        //this.li.removeChild(this.categorySpan);
+        //this.li.removeChild(this.pomodoro);
+        //this.li.removeChild(this.start);
         this.li.removeChild(this.deleteThis);
     }
 
@@ -151,7 +151,7 @@ export default class ListItem {
 
     createDelete() {
         let deleteThis = document.createElement("span");
-        deleteThis.setAttribute("class", "start-pomodoro badge badge-pill badge- ml-1 p-2");
+        deleteThis.setAttribute("class", "start-pomodoro badge badge-pill badge- ml-auto p-2");
         deleteThis.innerHTML = "&#10060;";
         return deleteThis;
     }
@@ -160,7 +160,8 @@ export default class ListItem {
         this.text.innerText = text;
     }
 
-    addPomodoro() {
+    // TODO add these features later
+    /*addPomodoro() {
         this.hasPomodoro = true;
         this.pomodoroCount++;
         this.pomodoro.innerText = this.pomodoroCount;
@@ -178,9 +179,9 @@ export default class ListItem {
         this.categorySpan.setAttribute("class", "badge badge-info badge-pill ml-auto p-2");
         this.categorySpan.innerText = this.category.title;
         this.categorySpan.style.backgroundColor = this.category.color;
-    }
+    }*/
 
-    createCategory() {
+    /*createCategory() {
         let categorySpan = document.createElement("span");
         return categorySpan;
     }
@@ -188,7 +189,9 @@ export default class ListItem {
     removeCategory() {
         this.hasCategory = false;
         this.category = {};
-    }
+    }*/
+
+    // TODO add tag functionality
 
     addTag(tag) {
         this.hasTag = true;

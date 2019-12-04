@@ -8,15 +8,15 @@ import ListItem from './listitem.js';
  */
 export default class List {
 
-    constructor(container, title) {
+    constructor(container, title, listItems = [], dateCreated = new Date()) {
         this.container = container;
-        this.listItems = [];
+        this.listItems = listItems;
         if (title == ""){
             this.listTitle = "No title";
         } else {
             this.listTitle = title;
         }
-        this.dateCreated = new Date();
+        this.dateCreated = dateCreated;
         this.div = this.createDiv();
         this.ul = this.createUl();
         this.title = this.createTitle();
