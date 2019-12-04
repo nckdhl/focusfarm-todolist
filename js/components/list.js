@@ -8,9 +8,10 @@ import ListItem from './listitem.js';
  */
 export default class List {
 
-    constructor(container, title, listItems = [], dateCreated = new Date()) {
+    constructor(container, title, dateCreated = new Date(), fromDB = false) {
         this.container = container;
-        this.listItems = listItems;
+        this.listItems = [];
+        this.fromDB = fromDB;
         if (title == ""){
             this.listTitle = "No title";
         } else {
@@ -35,9 +36,11 @@ export default class List {
 
 
     initList(){
-        let firstItem = new ListItem(this.ul);
-        this.listItems.push(firstItem);
-        firstItem.renderInput();
+        if (!this.fromDB) {
+            let firstItem = new ListItem(this.ul);
+            this.listItems.push(firstItem);
+            firstItem.renderInput();
+        }
     }
 
     renderList() {
@@ -50,23 +53,25 @@ export default class List {
     initEvents() {
         var that = this;
         this.button.addEventListener("click", function () {
-            console.log("clicked");
-            that.addListItem(new ListItem(that.ul));
-            console.log(that.listItems);
+            that.fromDB = false;
+
+            if (that.listItems[that.listItems.length - 1].input.reportValidity()){
+                that.addListItem(new ListItem(that.ul));
+            }
+            // that.addListItem(new ListItem(that.ul));
+            // that.fromDB = false;
+            // console.log(that.listItems);
         });
     }
 
     addListItem(listItem) {
-        console.log("tried to add");
-        var that = this;
         this.listItems.push(listItem);
-        console.log(listItem);
-        let lastItem = this.listItems.length - 1;
-        console.log(lastItem);
-        if (lastItem > 1 && !(this.listItems[lastItem - 1].isInput)) {
-            this.listItems[lastItem - 1].toggleInput();
-        }
+
         listItem.renderInput();
+        if (this.fromDB) {
+            listItem.toggleInput();
+        }
+        var that = this;
         listItem.deleteThis.addEventListener("click", function () {
             that.deleteListItem(listItem, that.listItems.indexOf(listItem));
         });
@@ -92,7 +97,7 @@ export default class List {
         let titleString = this.listTitle;
         let listTitle = document.createElement("h6");
         listTitle.setAttribute("class", "list-title d-flex text-light");
-        listTitle.innerHTML = `${titleString} <span class="font-italic ml-auto">${this.dateCreated.toLocaleDateString("en-US")}</span>`;
+        listTitle.innerHTML = `${titleString} <span class="font-italic ml-auto">${this.fromDB ? this.dateCreated : this.dateCreated.toLocaleDateString('en-CA')}</span>`;
         return listTitle;
     }
 

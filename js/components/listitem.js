@@ -4,13 +4,15 @@
  */
 export default class ListItem {
 
-    constructor(listContainer, hasTag = false, isComplete = false, isInput = false, dateCreated = new Date()) {
+    constructor(listContainer, listID = null, hasTag = false, isComplete = false,
+                isInput = false, dateCreated = new Date(), content = "") {
         this.listContainer = listContainer;
-
+        this.listID = listID;
         this.hasTag = hasTag;
         this.isComplete = isComplete;
         this.isInput = isInput;
         this.dateCreated = dateCreated;
+        this.content = content;
 
         // TODO add these features later
         //this.hasText = false;
@@ -22,7 +24,7 @@ export default class ListItem {
         this.tags = [];
         this.li = this.createLi();
         this.checkBox = this.createCheckBox();
-        this.text = document.createElement("span");
+        this.text = this.createText();
         //this.categorySpan = this.createCategory();
         //this.pomodoro = this.createPomodoro();
         //this.start = this.createStart();
@@ -66,32 +68,31 @@ export default class ListItem {
         if (!this.isInput) {
             this.li.removeChild(this.input);
             this.renderListItem();
-            if (this.input.value == "") {
+            if (this.content != ""){
+                this.setText(this.content);
+            } else if (this.input.value == "") {
                 this.setText("Doubleclick here to edit.");
-            } else {
-                this.setText(this.input.value);
-                this.hasText = true;
             }
             this.scanForTags();
             this.isInput = !this.isInput;
-            console.log("first one");
         } else {
             this.removeListItem();
             this.renderInput();
             this.input.focus();
             this.isInput = !this.isInput;
-            console.log("second one");
         }
     }
 
     initEvents() {
         var that = this;
         this.li.addEventListener("dblclick", function () {
+            that.content = that.input.value;
             that.toggleInput();
         });
         this.input.addEventListener("keyup", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault();
+                that.content = that.input.value;
                 that.toggleInput();
             }
         })
@@ -121,6 +122,12 @@ export default class ListItem {
         console.log(this.tags);
     }
 
+    createText() {
+        let span = document.createElement("span");
+        span.innerText = this.content;
+        return span;
+    }
+
     createLi() {
         let li = document.createElement("li");
         li.setAttribute("class", "list-group-item d-flex bg-dark text-light");
@@ -132,6 +139,8 @@ export default class ListItem {
         input.setAttribute("class", "form-control no-outline");
         input.setAttribute("type", "text");
         input.setAttribute("placeholder", "Type here... press enter to save.");
+        input.required = true;
+        input.value = this.content;
         return input;
     }
 

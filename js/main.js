@@ -25,16 +25,36 @@ window.addEventListener("load", function () {
             }
         })
             .then(response => response.json())
-            .then(function (data) {
-                console.log(data);
-            });
+            .then(populateLists)
+            .then(renderListControls);
     };
 
     const populateLists = data => {
+        console.log(data);
+        for (let i = 0; i < data.length; i++){
+            let l = new List(container, data[i].listTitle, data[i].dateCreated, true);
+            for (let j = 0; j < data[i].listItems.length; j++){
+                l.addListItem(new ListItem(l.ul, data[i].listItems[j].itemID, false, data[i].listItems[j].isComplete,
+                    false, data[i].listItems[j].dateCreated, data[i].listItems[j].itemText))
+            }
+            lists.push(l);
+            selector.insertList(l);
+            listCount++;
+        }
+        return lists[lists.length - 1];
+    }
 
+    const renderListControls = list => {
+        container.classList.add('p-3');
+        list.renderList();
+        selector.renderSelector();
+        lastIndex = listCount - 1;
     }
 
     getLists();
+    console.log("Print lists");
+    console.log(lists);
+    //renderListControls(lists[lists.length - 1]);
 
     logOutButton.addEventListener("click", function(){
         let params = `logout=true`;
@@ -59,20 +79,24 @@ window.addEventListener("load", function () {
 
     newListButton.addEventListener("click", function(event){
         event.preventDefault();
-        container.classList.add('p-3');
-        let l = new List(container, newListNameInput.value);
-        l.renderList();
-        if (listCount === 0){
-            selector.renderSelector();
-            selector.insertList(l);
-        } else {
-            selector.insertList(l);
-            container.removeChild(lists[lists.length - 1].div);
+        if (newListNameInput.reportValidity()){
+            container.classList.add('p-3');
+            let l = new List(container, newListNameInput.value);
+            newListNameInput.value = "";
+            l.renderList();
+            if (listCount === 0){
+                selector.renderSelector();
+                selector.insertList(l);
+            } else {
+                selector.insertList(l);
+                container.removeChild(lists[lastIndex].div);
+            }
+            lists.push(l);
+            listCount ++;
+            lastIndex = listCount - 1;
+            console.log(lists);
         }
-        lists.push(l);
-        listCount ++;
-        lastIndex = listCount - 1;
-        console.log(lists);
+
     })
 
     selector.selectorLoadButton.addEventListener("click", function(){
