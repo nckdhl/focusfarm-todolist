@@ -36,14 +36,8 @@ require "php/connectdb.php";
 <body class="bg-secondary" id="index-body">
     <nav class="navbar navbar-expand-lg navbar-dark shadow-lg bg-dark">
         <a class="navbar-brand" href="#">FocusFarm</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
         <div class="ml-auto">
-            <span class="text-secondary font-italic"><?php echo "Welcome back, " . $_SESSION["firstName"] . "." ?></span>
-            <button class="btn btn-outline-success m-2 my-2 my-sm-0" id="save" type="button">Save</button>
+            <span class="text-light mr-2 font-italic"><?php echo "Welcome back, " . $_SESSION["firstName"] . "." ?></span>
             <button class="btn btn-outline-primary my-2 my-sm-0" id="logOut" type="button">Log Out</button>
         </div>
     </nav>

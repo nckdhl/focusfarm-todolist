@@ -23,15 +23,13 @@ export default class List {
         this.ul = this.createUl();
         this.title = this.createTitle();
         this.ul.appendChild(this.title);
-        //this.initList();
-        //this.addListItem(new ListItem(this.ul));
         this.button = this.createButton();
         this.initEvents();
     }
 
     createDiv() {
         let div = document.createElement("div");
-        div.setAttribute("class", "col-9 current-list");
+        div.setAttribute("class", "col-8 current-list");
         return div;
     }
 
@@ -41,6 +39,7 @@ export default class List {
             let firstItem = new ListItem(this.ul, this.listID);
             this.listItems.push(firstItem);
             firstItem.renderInput();
+            this.fromDB = !this.fromDB;
         }
     }
 
@@ -49,7 +48,6 @@ export default class List {
         this.div.appendChild(this.ul);
         this.div.appendChild(this.button);
         this.container.insertAdjacentElement("afterbegin", this.div);
-        // this.listItems[0].input.focus();
     }
 
     initEvents() {
@@ -60,9 +58,6 @@ export default class List {
             if (that.listItems[that.listItems.length - 1].input.reportValidity()){
                 that.addListItem(new ListItem(that.ul, that.listID));
             }
-            // that.addListItem(new ListItem(that.ul));
-            // that.fromDB = false;
-            // console.log(that.listItems);
         });
     }
 

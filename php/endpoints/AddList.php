@@ -12,8 +12,8 @@ function addList($listTitleInput, $today, $dbo){
         $stmt = $dbo->prepare($command);
         $success = $stmt->execute($params);
         if ($success) {
-            $userID = $stmt->fetch();
-            return $userID;
+            $listID = $stmt->fetchColumn();
+            return $listID;
         } else {
             return false;
         }

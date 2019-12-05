@@ -6,13 +6,12 @@ window.addEventListener("load", function () {
     let container = document.querySelector("#list-container");
     let newListButton = document.querySelector("#new-list-button");
     let newListNameInput = document.querySelector("#new-list-input");
-    let saveButton = document.querySelector("#save");
     let logOutButton = document.querySelector("#logOut");
     
     let selector = new ListSelector(container);
     
-    let listCount = 0;
-    let lastIndex = 0;
+    //let listCount = 0;
+    //let lastIndex = 0;
 
     let lists = [];
 
@@ -40,7 +39,7 @@ window.addEventListener("load", function () {
                 }
                 lists.push(l);
                 selector.insertList(l);
-                listCount++;
+                //listCount++;
             }
             return lists[lists.length - 1];
         } else {
@@ -54,7 +53,7 @@ window.addEventListener("load", function () {
             container.classList.add('p-3');
             list.renderList();
             selector.renderSelector();
-            lastIndex = listCount - 1;
+            //lastIndex = lists.length - 1;
         }
     }
 
@@ -105,17 +104,17 @@ window.addEventListener("load", function () {
                         container.classList.add('p-3');
                         let l = new List(container, listTitle, data.listID);
                         newListNameInput.value = "";
-                        l.renderList();
-                        if (listCount === 0){
+                        if (lists.length == 0){
+                            l.renderList();
                             selector.renderSelector();
                             selector.insertList(l);
                         } else {
                             selector.insertList(l);
-                            container.removeChild(lists[lastIndex].div);
+                            container.removeChild(document.querySelector(".current-list"));
+                            l.renderList();
                         }
                         lists.push(l);
-                        listCount ++;
-                        lastIndex = listCount - 1;
+                       // lastIndex = lists.length - 1;
                         console.log(lists);
                     } else {
                         console.log("Didnt work - list insert");
@@ -142,15 +141,15 @@ window.addEventListener("load", function () {
 
            lists[selectedIndex].renderList();
 
-            lastIndex = selectedIndex;
+            //lastIndex = selectedIndex;
             console.log("List to be loaded: ");
             console.log(lists[selectedIndex]);
         }
-    })
+    });
 
     selector.selectorDeleteButton.addEventListener("click", function(){
-        console.log("last Index");
-        console.log(lastIndex);
+        //console.log("last Index");
+        //console.log(lastIndex);
         console.log(lists);
         let selectedIndex = selector.selectorControl.selectedIndex;
 
@@ -159,19 +158,27 @@ window.addEventListener("load", function () {
             lists.splice(selectedIndex, 1);
             selector.removeList(selectedIndex);
             console.log(selectedIndex)
-            if (selectedIndex == lastIndex){
+            if (selectedList.div.parentNode){
                 container.removeChild(document.querySelector(".current-list"));
                 //lists.splice(selectedIndex, 1);
-                console.log(lists);
-                lists[lists.length - 1].renderList();
-                lastIndex--;
+                //console.log(lists);
+                if (lists.length > 0){
+                    lists[lists.length - 1].renderList();
+                } else if (lists.length == 0){
+                    container.removeChild(selector.selectorContainer);
+                    //container.classList.add('p-3');
+                    container.classList.remove('p-3')
+                }
             }
             deleteListByID(selectedList.listID);
             //lastIndex = selectedIndex;
         }
 
+    });
 
-    })
+    selector.selectorControl.addEventListener("change", function(){
+        console.log(selector.selectorControl.selectedIndex);
+    });
 
     const deleteListByID = (listID) => {
 

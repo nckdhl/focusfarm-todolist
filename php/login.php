@@ -38,21 +38,13 @@ if ($emailInput !== null and $passwordInput !== null) {
         $userID = $userRecord["userID"];
         $firstName = $userRecord["first_name"];
 
-        // TODO add password hash checks after password hashing for
-        //  registration is implemented
+         if (password_verify($passwordInput, $passwordHash)){
 
-        // if (password_verify($passwordHash, $passwordInput)){
+             $_SESSION["userID"] = $userID;
+             $_SESSION["firstName"] = $firstName;
+             $credentialsOK = true;
+         }
 
-        //     $_SESSION["userID"] = $userID;
-        //     $_SESSION["firstName"] = $firstName;
-        //     $credentialsOK = true;
-        // }
-
-        if ($passwordHash == $passwordInput){
-            $_SESSION["userID"] = $userID;
-            $_SESSION["firstName"] = $firstName;
-            $credentialsOK = true;
-        }
     }
 }
 

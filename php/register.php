@@ -47,14 +47,13 @@ $notValid = array("valid" => false, "inserted" => false);
 if ($emailInput !== null and $passwordInput !== null and
     $firstNameInput !== null and $lastNameInput !== null) {
 
-        // TODO add password hashing
-
         if (!doesUserExist($emailInput, $dbh)){
-            if (insertRecord($emailInput, $passwordInput, $firstNameInput, $lastNameInput, $dbh)){
+
+            $passwordHash = password_hash($passwordInput, PASSWORD_DEFAULT);
+
+            if (insertRecord($emailInput, $passwordHash, $firstNameInput, $lastNameInput, $dbh)){
                 $isValid = array("inserted" => true, "valid" => true);
                 echo json_encode($isValid);
-                // FIXME make JSON inserted and valid keys more relevant for error messages
-                //  that will be returned to javascript
             }
         } else {
             session_unset();

@@ -13,6 +13,8 @@ window.addEventListener("load", function () {
     loginButton.addEventListener("click", function () {
         event.preventDefault();
 
+        emailInput.setCustomValidity('');
+
         if (emailInput.reportValidity() && passwordInput.reportValidity()) {
             let email = emailInput.value;
             let password = passwordInput.value;
@@ -34,6 +36,7 @@ window.addEventListener("load", function () {
                         window.location.replace("../main.php");
                     } else {
                         emailInput.setCustomValidity("Invalid username or password");
+                        emailInput.reportValidity();
                     }
                 });
         }
@@ -43,6 +46,9 @@ window.addEventListener("load", function () {
 
     registration.button.addEventListener("click", function(){
         event.preventDefault();
+
+        emailInput.setCustomValidity('');
+
 
         if (registration.inputEmail.reportValidity() && registration.inputFirstName.reportValidity() &&
             registration.inputLastName.reportValidity() && registration.inputPassword.reportValidity()) {
@@ -71,6 +77,7 @@ window.addEventListener("load", function () {
                     } else {
                         console.log(data);
                         registration.inputEmail.setCustomValidity("Invalid username, password or name");
+                        emailInput.reportValidity();
                     }
                 });
         }

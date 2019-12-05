@@ -14,21 +14,11 @@ export default class ListItem {
         this.isInput = isInput;
         this.dateCreated = dateCreated;
         this.content = content;
-
-        // TODO add these features later
-        //this.hasText = false;
-        //this.hasPomodoro = false;
-        //this.hasCategory = false;
-        //this.pomodoroCount = 0;
-
-        this.category;
         this.tags = [];
+
         this.li = this.createLi();
         this.checkBox = this.createCheckBox();
         this.text = this.createText();
-        //this.categorySpan = this.createCategory();
-        //this.pomodoro = this.createPomodoro();
-        //this.start = this.createStart();
         this.deleteThis = this.createDelete();
 
         this.input = this.createInput();
@@ -46,9 +36,6 @@ export default class ListItem {
     renderListItem() {
         this.li.appendChild(this.checkBox);
         this.li.appendChild(this.text);
-        //this.li.appendChild(this.categorySpan);
-        //this.li.appendChild(this.pomodoro);
-        //this.li.appendChild(this.start);
         this.li.appendChild(this.deleteThis);
 
         if (this.isComplete) {
@@ -60,9 +47,6 @@ export default class ListItem {
     removeListItem() {
         this.li.removeChild(this.checkBox);
         this.li.removeChild(this.text);
-        //this.li.removeChild(this.categorySpan);
-        //this.li.removeChild(this.pomodoro);
-        //this.li.removeChild(this.start);
         this.li.removeChild(this.deleteThis);
     }
 
@@ -117,8 +101,10 @@ export default class ListItem {
     initEvents() {
         var that = this;
         this.li.addEventListener("dblclick", function () {
-            that.content = that.input.value;
-            that.toggleInput();
+            console.log(that.isInput);
+            if (that.isInput){
+                that.toggleInput();
+            }
         });
         this.input.addEventListener("keyup", function (event) {
             if (event.key === "Enter") {
@@ -249,12 +235,6 @@ export default class ListItem {
         return checkbox;
     }
 
-    createStart() {
-        let start = document.createElement("span");
-        start.setAttribute("class", "start-pomodoro badge badge-pill badge- ml-1 p-2");
-        start.innerText = "Start";
-        return start;
-    }
 
     createDelete() {
         let deleteThis = document.createElement("span");
@@ -265,48 +245,6 @@ export default class ListItem {
 
     setText(text) {
         this.text.innerText = text;
-    }
-
-    // TODO add these features later
-    /*addPomodoro() {
-        this.hasPomodoro = true;
-        this.pomodoroCount++;
-        this.pomodoro.innerText = this.pomodoroCount;
-    }
-
-    createPomodoro() {
-        let pomodoro = document.createElement("span");
-        pomodoro.setAttribute("class", "badge badge-primary badge-pill ml-auto p-2");
-        pomodoro.innerText = this.pomodoroCount;
-        return pomodoro;
-    }
-
-    setCategory(category) {
-        this.category = category;
-        this.categorySpan.setAttribute("class", "badge badge-info badge-pill ml-auto p-2");
-        this.categorySpan.innerText = this.category.title;
-        this.categorySpan.style.backgroundColor = this.category.color;
-    }*/
-
-    /*createCategory() {
-        let categorySpan = document.createElement("span");
-        return categorySpan;
-    }
-
-    removeCategory() {
-        this.hasCategory = false;
-        this.category = {};
-    }*/
-
-    // TODO add tag functionality
-
-    addTag(tag) {
-        this.hasTag = true;
-        this.tags.push(tag);
-    }
-
-    createTag() {
-        // ADD tag 
     }
 
 }
