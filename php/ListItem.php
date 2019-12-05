@@ -35,4 +35,12 @@ class ListItem implements JsonSerializable
     public function getListId() {
         return $this->listID;
     }
+
+    public function getCompletion() {
+        return $this->isComplete;
+    }
+
+    public function setCompletion($completion) {
+        $this->isComplete = $completion;
+    }
 }

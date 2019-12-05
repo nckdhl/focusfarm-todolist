@@ -32,15 +32,14 @@ export default class ListSelector {
 
     createOption(id = ""){
         let option = document.createElement("option");
-        option.setAttribute("id", id);
+        option.setAttribute("id", `option${id}`);
         this.selectorControl.appendChild(option);
         return option;
     }
 
     removeList(index){
-        this.lists = this.list.splice(index, 1);
-        
-
+        this.lists.splice(index, 1);
+        this.selectorControl.remove(index);
     }
 
     createDiv() {

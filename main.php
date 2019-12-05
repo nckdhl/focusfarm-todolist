@@ -42,6 +42,7 @@ require "php/connectdb.php";
         </button>
 
         <div class="ml-auto">
+            <span class="text-secondary font-italic"><?php echo "Welcome back, " . $_SESSION["firstName"] . "." ?></span>
             <button class="btn btn-outline-success m-2 my-2 my-sm-0" id="save" type="button">Save</button>
             <button class="btn btn-outline-primary my-2 my-sm-0" id="logOut" type="button">Log Out</button>
         </div>

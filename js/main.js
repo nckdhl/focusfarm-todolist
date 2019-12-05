@@ -30,31 +30,35 @@ window.addEventListener("load", function () {
     };
 
     const populateLists = data => {
-        console.log(data);
-        for (let i = 0; i < data.length; i++){
-            let l = new List(container, data[i].listTitle, data[i].dateCreated, true);
-            for (let j = 0; j < data[i].listItems.length; j++){
-                l.addListItem(new ListItem(l.ul, data[i].listItems[j].itemID, false, data[i].listItems[j].isComplete,
-                    false, data[i].listItems[j].dateCreated, data[i].listItems[j].itemText))
+        if (data){
+            console.log(data);
+            for (let i = 0; i < data.length; i++){
+                let l = new List(container, data[i].listTitle, data[i].listID, data[i].dateCreated, true);
+                for (let j = 0; j < data[i].listItems.length; j++){
+                    l.addListItem(new ListItem(l.ul, l.listID, false, data[i].listItems[j].isComplete,
+                        false, data[i].listItems[j].dateCreated, data[i].listItems[j].itemText, data[i].listItems[j].itemID))
+                }
+                lists.push(l);
+                selector.insertList(l);
+                listCount++;
             }
-            lists.push(l);
-            selector.insertList(l);
-            listCount++;
+            return lists[lists.length - 1];
+        } else {
+            return false;
         }
-        return lists[lists.length - 1];
+
     }
 
     const renderListControls = list => {
-        container.classList.add('p-3');
-        list.renderList();
-        selector.renderSelector();
-        lastIndex = listCount - 1;
+        if (list) {
+            container.classList.add('p-3');
+            list.renderList();
+            selector.renderSelector();
+            lastIndex = listCount - 1;
+        }
     }
 
     getLists();
-    console.log("Print lists");
-    console.log(lists);
-    //renderListControls(lists[lists.length - 1]);
 
     logOutButton.addEventListener("click", function(){
         let params = `logout=true`;
@@ -79,36 +83,119 @@ window.addEventListener("load", function () {
 
     newListButton.addEventListener("click", function(event){
         event.preventDefault();
+
         if (newListNameInput.reportValidity()){
-            container.classList.add('p-3');
-            let l = new List(container, newListNameInput.value);
-            newListNameInput.value = "";
-            l.renderList();
-            if (listCount === 0){
-                selector.renderSelector();
-                selector.insertList(l);
-            } else {
-                selector.insertList(l);
-                container.removeChild(lists[lastIndex].div);
-            }
-            lists.push(l);
-            listCount ++;
-            lastIndex = listCount - 1;
-            console.log(lists);
+
+            let listTitle = newListNameInput.value;
+
+            let params = `listTitle=${listTitle}`;
+
+            fetch("php/endpoints/AddList.php", {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }, // parameter format
+                body: params
+            })
+                .then(response => response.json())
+                .then(function (data) {
+                    if (data.success){
+                        console.log(data);
+                        container.classList.add('p-3');
+                        let l = new List(container, listTitle, data.listID);
+                        newListNameInput.value = "";
+                        l.renderList();
+                        if (listCount === 0){
+                            selector.renderSelector();
+                            selector.insertList(l);
+                        } else {
+                            selector.insertList(l);
+                            container.removeChild(lists[lastIndex].div);
+                        }
+                        lists.push(l);
+                        listCount ++;
+                        lastIndex = listCount - 1;
+                        console.log(lists);
+                    } else {
+                        console.log("Didnt work - list insert");
+                        console.log(data);
+                        alert("Couldn't create the list - Check your internet connection");
+                    }
+                });
+
         }
 
     })
 
     selector.selectorLoadButton.addEventListener("click", function(){
         let selectedIndex = selector.selectorControl.selectedIndex;
-        if (selectedIndex != lastIndex){
-            lists[selectedIndex].renderList();
-        container.removeChild(lists[lastIndex].div);
+
+        if (selectedIndex > -1) {
+
+           /* if (selectedIndex != lastIndex) {
+                lists[selectedIndex].renderList();
+                container.removeChild(document.querySelector(".current-list"));
+                //container.removeChild(lists[lastIndex].div);
+            }*/
+           container.removeChild(document.querySelector(".current-list"));
+
+           lists[selectedIndex].renderList();
+
+            lastIndex = selectedIndex;
+            console.log("List to be loaded: ");
+            console.log(lists[selectedIndex]);
         }
-        lastIndex = selectedIndex;
-        console.log("List to be loaded: ");
-        console.log(lists[selectedIndex]);
     })
+
+    selector.selectorDeleteButton.addEventListener("click", function(){
+        console.log("last Index");
+        console.log(lastIndex);
+        console.log(lists);
+        let selectedIndex = selector.selectorControl.selectedIndex;
+
+        if (selectedIndex > -1){
+            let selectedList = lists[selectedIndex];
+            lists.splice(selectedIndex, 1);
+            selector.removeList(selectedIndex);
+            console.log(selectedIndex)
+            if (selectedIndex == lastIndex){
+                container.removeChild(document.querySelector(".current-list"));
+                //lists.splice(selectedIndex, 1);
+                console.log(lists);
+                lists[lists.length - 1].renderList();
+                lastIndex--;
+            }
+            deleteListByID(selectedList.listID);
+            //lastIndex = selectedIndex;
+        }
+
+
+    })
+
+    const deleteListByID = (listID) => {
+
+        let params = `listID=${listID}`;
+
+        fetch("php/endpoints/DeleteList.php", {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params
+        })
+            .then(response => response.json())
+            .then(function (data) {
+                if (data.success){
+                    console.log("deleted");
+                } else {
+                    console.log("didn't delete");
+                }
+            });
+    }
+
+
 
     // selector.selectorDeleteButton.addEventListener("click", function(){
     //     let selectedIndex = selector.selectorControl.selectedIndex;

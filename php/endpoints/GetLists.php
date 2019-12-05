@@ -49,6 +49,13 @@ if ($requestOK){
             if ($listItem == false){
                 break;
             }
+
+            if ($listItem->getCompletion()){
+                $listItem->setCompletion(true);
+            } else {
+                $listItem->setCompletion(false);
+            }
+
             array_push($listItems, $listItem);
         }
     }

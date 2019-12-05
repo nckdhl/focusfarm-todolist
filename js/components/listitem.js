@@ -5,9 +5,10 @@
 export default class ListItem {
 
     constructor(listContainer, listID = null, hasTag = false, isComplete = false,
-                isInput = false, dateCreated = new Date(), content = "") {
+                isInput = false, dateCreated = new Date(), content = "", itemID = -1) {
         this.listContainer = listContainer;
         this.listID = listID;
+        this.itemID = itemID;
         this.hasTag = hasTag;
         this.isComplete = isComplete;
         this.isInput = isInput;
@@ -49,6 +50,11 @@ export default class ListItem {
         //this.li.appendChild(this.pomodoro);
         //this.li.appendChild(this.start);
         this.li.appendChild(this.deleteThis);
+
+        if (this.isComplete) {
+            this.checkBox.checked = true;
+            this.text.style.textDecoration = "line-through";
+        }
     }
 
     removeListItem() {
@@ -62,6 +68,31 @@ export default class ListItem {
 
     delete() {
         this.listContainer.removeChild(this.li);
+
+        const deleteItemByID = (itemID) => {
+
+            let params = `itemID=${itemID}`;
+
+            fetch("php/endpoints/DeleteListItem.php", {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: params
+            })
+                .then(response => response.json())
+                .then(function (data) {
+                    if (data.success){
+                        console.log("deleted");
+                    } else {
+                        console.log("didn't delete");
+                    }
+                });
+        }
+
+        deleteItemByID(this.itemID);
+
     }
 
     toggleInput() {
@@ -93,17 +124,85 @@ export default class ListItem {
             if (event.key === "Enter") {
                 event.preventDefault();
                 that.content = that.input.value;
-                that.toggleInput();
+
+                if (that.content != "" && that.itemID == -1){
+                    let params = `content=${that.content}&listID=${that.listID}`;
+                    fetch("php/endpoints/AddListItem.php", {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        }, // parameter format
+                        body: params
+                    })
+                        .then(response => response.json())
+                        .then(function (data) {
+                            if (data.success){
+                                console.log("Inserted");
+                                console.log(data);
+                                that.itemID = data.listItemID;
+                                that.toggleInput();
+                            } else {
+                                alert("Something went wrong. Try re-entering your list item");
+                            }
+                        });
+                }
+
+                if (that.content != "" && that.itemID != -1){
+                    console.log(`Completion at update fetch = ${that.isComplete}`);
+                    let params = `content=${that.content}&listItemID=${that.itemID}&isComplete=${that.isComplete}`;
+                    fetch("php/endpoints/UpdateListItem.php", {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        }, // parameter format
+                        body: params
+                    })
+                        .then(response => response.json())
+                        .then(function (data) {
+                            if (data.success){
+                                console.log("Updated");
+                                console.log(data);
+                                that.toggleInput();
+                            } else {
+                                alert("Something went wrong. Try re-checking your list item");
+                            }
+                        });
+                }
             }
         })
         this.checkBox.addEventListener("change", function () {
             if (that.checkBox.checked) {
                 that.text.style.textDecoration = "line-through";
                 that.isComplete = true;
+                console.log("Complete = true");
             } else {
                 that.text.style.textDecoration = "initial";
                 that.isComplete = false;
+                console.log("Complete = false");
             }
+
+            console.log(`Completion at update fetch = ${that.isComplete}`);
+            let params = `content=${that.content}&listItemID=${that.itemID}&isComplete=${that.isComplete}`;
+            fetch("php/endpoints/UpdateListItem.php", {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }, // parameter format
+                body: params
+            })
+                .then(response => response.json())
+                .then(function (data) {
+                    if (data.success){
+                        console.log("Updated");
+                        console.log(data);
+                    } else {
+                        alert("Something went wrong. Try re-entering your list item");
+                    }
+                });
+
         })
     }
 
@@ -119,7 +218,6 @@ export default class ListItem {
                 that.text.innerHTML = string.replace(tag, `<span class="hash-tag">${tag}<span>`);
             })
         }
-        console.log(this.tags);
     }
 
     createText() {

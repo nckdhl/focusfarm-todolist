@@ -8,8 +8,9 @@ import ListItem from './listitem.js';
  */
 export default class List {
 
-    constructor(container, title, dateCreated = new Date(), fromDB = false) {
+    constructor(container, title, listID, dateCreated = new Date(), fromDB = false) {
         this.container = container;
+        this.listID = listID;
         this.listItems = [];
         this.fromDB = fromDB;
         if (title == ""){
@@ -22,7 +23,7 @@ export default class List {
         this.ul = this.createUl();
         this.title = this.createTitle();
         this.ul.appendChild(this.title);
-        this.initList();
+        //this.initList();
         //this.addListItem(new ListItem(this.ul));
         this.button = this.createButton();
         this.initEvents();
@@ -30,20 +31,21 @@ export default class List {
 
     createDiv() {
         let div = document.createElement("div");
-        div.setAttribute("class", "col-9");
+        div.setAttribute("class", "col-9 current-list");
         return div;
     }
 
 
     initList(){
-        if (!this.fromDB) {
-            let firstItem = new ListItem(this.ul);
+        if (!this.fromDB | this.listItems.length == 0) {
+            let firstItem = new ListItem(this.ul, this.listID);
             this.listItems.push(firstItem);
             firstItem.renderInput();
         }
     }
 
     renderList() {
+        this.initList();
         this.div.appendChild(this.ul);
         this.div.appendChild(this.button);
         this.container.insertAdjacentElement("afterbegin", this.div);
@@ -56,7 +58,7 @@ export default class List {
             that.fromDB = false;
 
             if (that.listItems[that.listItems.length - 1].input.reportValidity()){
-                that.addListItem(new ListItem(that.ul));
+                that.addListItem(new ListItem(that.ul, that.listID));
             }
             // that.addListItem(new ListItem(that.ul));
             // that.fromDB = false;
