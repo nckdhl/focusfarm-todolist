@@ -6,6 +6,7 @@ export default class ListItem {
 
     constructor(listContainer, listID = null, hasTag = false, isComplete = false,
                 isInput = false, dateCreated = new Date(), content = "", itemID = -1) {
+
         this.listContainer = listContainer;
         this.listID = listID;
         this.itemID = itemID;
@@ -20,7 +21,6 @@ export default class ListItem {
         this.checkBox = this.createCheckBox();
         this.text = this.createText();
         this.deleteThis = this.createDelete();
-
         this.input = this.createInput();
 
         this.listContainer.appendChild(this.li);

@@ -1,10 +1,13 @@
 import ListItem from './listitem.js';
 
 /**
- * This class is for a list which contains list items
+ *
+ *  I, Nicholas Dahl, 000783631 certify that this material is my original work.
+ *  No other person's work has been used without due acknowledgement.
+ *
+ *  This class is for a list which contains list items
  * 
- * TO-DO:
- * - lots
+ *
  */
 export default class List {
 
