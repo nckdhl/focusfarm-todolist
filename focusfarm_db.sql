@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `list`
 --
 
-USE `d030e0c0`;
+USE `YOUR_DB_NAME`;
 
 CREATE TABLE `list` (
   `listID` int(11) NOT NULL,
@@ -82,21 +82,6 @@ CREATE TABLE `user` (
   `last_name` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`userID`, `email`, `first_name`, `last_name`, `password`) VALUES
-(12, 'thisismyname@gmail.com', 'Joe', 'Appleseed', '$2y$10$CUwAeNv.EAn57B7iyGxDFOy3CZUmrQy2NXjFBH9KK0jZurisk/xSu'),
-(13, 'ronald@gmail.com', 'Ronald', 'Mac', '$2y$10$dBwqX4ZNiUip1DpvSH9sFezE8mBHglLWUtpgAdW7.G6OZ3X7.MOo2'),
-(14, 'hello@gmail.com', 'Nick', 'Dahl', '$2y$10$n0cRuF1dZzMq.qdshKlnteFW/i4EeJMjUqjzV1.86xN11fjrJ44oq'),
-(15, 'dahl@gmail.com', 'Nicholas', 'Dahl', '$2y$10$ueuL3oAkBsIULANTYviWmOBcj.NupufC8WosqkIvb.J8g6ZKBW8g.'),
-(16, 'tricks@gmail.com', 'Nick', 'Dahl', '$2y$10$oAywbeWTTXVKgeztRUXLU.42h6wNVLrDYFDy0WD.VnZO59skRhJZC'),
-(17, 'wonder@gmail.com', 'Nick', 'Dahl', '$2y$10$69rLjFpHIh3cPyZnH/kMGeYwxYL4OqmS1JynrWeABJxYNhzxV2FDu'),
-(18, 'tester@gmail.com', 'Jimmy', 'Doe', '$2y$10$lu//.DpX7jv0aceE8TPKvOKSeryU8SCR.L9MIVuPC/lYW.v5PkA2e'),
-(19, 'nick@gmail.com', 'Nick', 'Dahl', '$2y$10$teGt1vPPUfHARmfHZ.CWWu90cS7yZc3UVyMf/q3lVdkdv3yBX5ijS'),
-(20, 'againagain@gmail.com', 'Nick', 'Dahl', '$2y$10$9TK3pXx2gamfewzkxcuAROOAOweXBHCkqhJ/DEA6RvBiOjfF9QLtW');
 
 --
 -- Indexes for dumped tables
