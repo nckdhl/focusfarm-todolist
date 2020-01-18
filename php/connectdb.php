@@ -10,7 +10,7 @@ try {
     $dbh = new PDO(
         "mysql:host=localhost;dbname=focusfarm_db",
         "root",
-        "root"
+        ""
     );
 } catch (Exception $e) {
     die("ERROR: Couldn't connect. {$e->getMessage()}");

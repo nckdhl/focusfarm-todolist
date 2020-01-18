@@ -1,11 +1,64 @@
 <!DOCTYPE html>
+<!--
+     I, Nicholas Dahl, 000783631 certify that this material is my original work.
+     No other person's work has been used without due acknowledgement.
 
+     Culminating Assignment - PHP and Javascript
+
+     Name of App: FocusFarm
+
+    << CHANGELOG >>>
+
+    - This app as I laid it out in the original plan was considerably more time-consuming than
+      originally planned, I therefore had to cut out alot of the promised functionality
+    - Basically the project was reduced to a simple ToDo list app with a nice UI
+
+    << CHANGES FROM PROJECT PLAN >>
+
+    1. NO Pomodoro style timer - The project was reduced to simply a ToDo list app
+    2. Tags will be functional in memory, but not in the database. You therefore also can't filter by tags.
+    3. No filter by categories or date as the functionality was left out.
+    4. No music player.
+    5. No saveable settings for the user.
+    6. Database schema is reduced to 3 tables - user, list_item and list
+    7.
+
+    << CHANGES FROM SECURITY AUDIT >>
+
+    1. Try-catch error handling was not implemented on the PHP side as all potential errors are handled gracefully by the front-end
+
+    << CHANGES FROM THE JQUERY INTEGRATION PLAN >>
+
+    - I was not able to implement JQuery at all because it was impossible to integrate with the way I built
+    my components without a full re-write of my project
+
+    - Unfortunately I saved JQuery to the end of the project and found out the hard way a few things that
+    made it impossible to include
+
+    - When I create DOM elements in JQuery and render them to the DOM or save to memory they are then
+    instantiated as JQuery objects and not pure HTML Node objects according to the WEB API.
+    Therefore, as soon as I create Node elements in my component classes using JQuery it breaks everything
+    because I can't use vanilla JS Node functions and methods on those objects as they become JQuery objects
+    that only accept JQuery operations
+
+    - I access all my DOM elements dynamically using assigned objects and variables and I would have to use JQuery
+    for all DOM manipulation and Element creation
+
+    - This would have taken too long to do given the size and structure of my JS files and therefore I left it out
+    as it is 9 pm on Friday the 6th and I've spent several hours already trying to implement it
+
+    - I thought I could have just integrated JQuery on select parts of my project but the modular structure
+    of my JS made this impossible
+
+    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    This is the main login/registration page for the app
+
+-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>FocusFarm</title>
-    <meta name="description"
-        content="Another pomodoro timer with some basic to-do list functionality and lots of background music">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
